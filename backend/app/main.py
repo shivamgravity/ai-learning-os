@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.routes import health, upload
+
 app = FastAPI()
 
 origins = [
@@ -15,13 +17,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(
+    health.router,
+    prefix="/api",
+    tags=["Health"]
+)
+
+app.include_router(
+    upload.router,
+    prefix="/api",
+    tags=["Upload"]
+)
+
 @app.get("/")
 def root():
-    return {"message": "Backend is running"}
-
-@app.get("/api/health")
-def health_check():
-    return {
-        "status": "ok",
-        "message": "AI Learning OS backend connected successfully"
-    }
+    return {"message": "AI Learning OS Backend Running"}
