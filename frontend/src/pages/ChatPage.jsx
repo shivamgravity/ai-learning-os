@@ -29,7 +29,14 @@ function ChatPage() {
 
       setLoading(true);
 
-      const result = await askQuestion(currentQuery);
+      const history = messages.map(
+        (msg) => msg.content
+      );
+
+      const result = await askQuestion(
+        currentQuery,
+        history
+      );
 
       const assistantMessage = {
         role: "assistant",
