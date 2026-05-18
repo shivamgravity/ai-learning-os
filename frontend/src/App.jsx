@@ -4,7 +4,7 @@ import MainLayout from "./layouts/MainLayout";
 
 import Dashboard from "./pages/Dashboard";
 import UploadPage from "./pages/UploadPage";
-import ChatPage from ".pages/ChatPage";
+import ChatPage from "./pages/ChatPage";
 
 function App() {
 
