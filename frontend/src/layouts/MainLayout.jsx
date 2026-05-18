@@ -28,6 +28,13 @@ function MainLayout({ children, setCurrentPage }) {
               Upload Notes
             </button>
 
+            <button
+              onClick={() => setCurrentPage("chat")}
+              className="block text-zinc-400 hover:text-white"
+            >
+              AI Chat
+            </button>
+
           </nav>
 
         </aside>
