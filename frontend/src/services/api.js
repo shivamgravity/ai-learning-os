@@ -40,3 +40,27 @@ export async function askQuestion(query, history) {
 
   return response.json();
 }
+
+export async function generateSummary(topic) {
+
+  const response = await fetch(
+    "http://127.0.0.1:8000/api/study/summarize",
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        topic
+      })
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to generate summary");
+  }
+
+  return response.json();
+}

@@ -35,6 +35,13 @@ function MainLayout({ children, setCurrentPage }) {
               AI Chat
             </button>
 
+            <button
+              onClick={() => setCurrentPage("study-tools")}
+              className="block text-zinc-400 hover:text-white"
+            >
+              Study Tools
+            </button>
+
           </nav>
 
         </aside>

@@ -1,7 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.routes import health, upload, search, chat
+from app.api.routes import (
+    health, 
+    upload, 
+    search, 
+    chat,
+    study_tools
+)
 
 app = FastAPI()
 
@@ -39,6 +45,12 @@ app.include_router(
     chat.router,
     prefix="/api",
     tags=["Chat"]
+)
+
+app.include_router(
+    study_tools.router,
+    prefix="/api/study",
+    tags=["Study Tools"]
 )
 
 @app.get("/")
