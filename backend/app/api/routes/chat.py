@@ -18,16 +18,19 @@ def chat(query: str):
     prompt = f"""
 You are an AI learning assistant.
 
-Answer the user's question ONLY using the provided context.
+Use the provided context to answer the user's question clearly and accurately.
 
-If the answer is not present in the context, say:
-"I could not find the answer in the uploaded material."
+If the context partially contains the answer, use the available information to give the best possible explanation.
+
+Do not invent information outside the context.
 
 Context:
 {context}
 
 Question:
 {query}
+
+Answer:
 """
 
     answer = generate_response(prompt)
