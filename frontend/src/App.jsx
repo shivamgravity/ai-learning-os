@@ -20,7 +20,9 @@ function App() {
 
       {currentPage === "chat" && <ChatPage />}
 
-      {currentPage === "study-tools" && <StudyToolsPage />}
+      {currentPage === "study-tools" && (
+        <StudyToolsPage />
+      )}
 
     </MainLayout>
   );
