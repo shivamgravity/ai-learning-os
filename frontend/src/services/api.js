@@ -15,3 +15,16 @@ export async function uploadPDF(file) {
 
   return response.json();
 }
+
+export async function askQuestion(query) {
+
+  const response = await fetch(
+    `http://127.0.0.1:8000/api/chat?query=${encodeURIComponent(query)}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to get AI response");
+  }
+
+  return response.json();
+}
