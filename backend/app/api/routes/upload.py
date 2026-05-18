@@ -4,6 +4,8 @@ import os
 from app.services.pdf_service import extract_text_from_pdf
 from app.utils.text_cleaner import clean_text
 from app.services.chunking_service import chunk_text
+from app.services.embedding_service import generate_embeddings
+from app.services.vector_db_service import store_chunks
 
 router = APIRouter()
 
@@ -24,6 +26,14 @@ async def upload_file(file: UploadFile = File(...)):
     cleaned_text = clean_text(raw_text)
 
     chunks = chunk_text(cleaned_text)
+
+    embeddings = generate_embeddings(chunks)
+
+    store_chunks(
+        chunks=chunks,
+        embeddings=embeddings,
+        filename=file.filename
+    )
 
     preview = cleaned_text[:1000] if cleaned_text else None
 
