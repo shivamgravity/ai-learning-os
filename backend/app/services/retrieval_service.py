@@ -10,4 +10,23 @@ def search_chunks(query, top_k=3):
         n_results=top_k
     )
 
-    return results
+    formatted_results = []
+
+    documents = results["documents"][0]
+    metadatas = results["metadatas"][0]
+    distances = results["distances"][0]
+
+    for doc, metadata, distance in zip(
+        documents,
+        metadatas,
+        distances
+    ):
+
+        formatted_results.append({
+            "text": doc,
+            "source": metadata["source"],
+            "chunk_index": metadata["chunk_index"],
+            "distance": round(distance, 4)
+        })
+
+    return formatted_results
