@@ -1,23 +1,39 @@
 from typing import List
+from nltk.tokenize import sent_tokenize
 
 def chunk_text(
     text: str,
     chunk_size: int = 500,
-    overlap: int = 100
+    overlap_sentences: int = 1
 ) -> List[str]:
+
+    sentences = sent_tokenize(text)
 
     chunks = []
 
-    start = 0
+    current_chunk = []
 
-    while start < len(text):
+    current_length = 0
 
-        end = start + chunk_size
+    for sentence in sentences:
 
-        chunk = text[start:end]
+        sentence_length = len(sentence)
 
-        chunks.append(chunk)
+        if current_length + sentence_length > chunk_size:
 
-        start += chunk_size - overlap
+            chunks.append(" ".join(current_chunk))
+
+            overlap = current_chunk[-overlap_sentences:]
+
+            current_chunk = overlap[:]
+
+            current_length = sum(len(s) for s in current_chunk)
+
+        current_chunk.append(sentence)
+
+        current_length += sentence_length
+
+    if current_chunk:
+        chunks.append(" ".join(current_chunk))
 
     return chunks
