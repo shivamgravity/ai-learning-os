@@ -4,6 +4,7 @@ import MainLayout from "./layouts/MainLayout";
 
 import Dashboard from "./pages/Dashboard";
 import UploadPage from "./pages/UploadPage";
+import ChatPage from ".pages/ChatPage";
 
 function App() {
 
@@ -15,6 +16,8 @@ function App() {
       {currentPage === "dashboard" && <Dashboard />}
 
       {currentPage === "upload" && <UploadPage />}
+
+      {currentPage === "chat" && <ChatPage />}
 
     </MainLayout>
   );
