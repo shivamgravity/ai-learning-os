@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.routes import health, upload
+from app.api.routes import health, upload, search
 
 app = FastAPI()
 
@@ -27,6 +27,12 @@ app.include_router(
     upload.router,
     prefix="/api",
     tags=["Upload"]
+)
+
+app.include_router(
+    search.router,
+    prefix="/api",
+    tags=["Search"]
 )
 
 @app.get("/")
