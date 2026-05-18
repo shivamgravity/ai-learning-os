@@ -9,4 +9,7 @@ def search(query: str):
 
     results = search_chunks(query)
 
-    return results
+    return {
+        "query": query,
+        "results": results
+    }
