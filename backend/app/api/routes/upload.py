@@ -2,6 +2,8 @@ from fastapi import APIRouter, UploadFile, File
 import os
 
 from app.services.pdf_service import extract_text_from_pdf
+from app.utils.text_cleaner import clean_text
+from app.services.chunking_service import chunk_text
 
 router = APIRouter()
 
@@ -17,13 +19,19 @@ async def upload_file(file: UploadFile = File(...)):
     with open(file_path, "wb") as buffer:
         buffer.write(await file.read())
 
-    extracted_text = extract_text_from_pdf(file_path)
+    raw_text = extract_text_from_pdf(file_path)
 
-    preview = extracted_text[:1000] if extracted_text.strip() else "None"
+    cleaned_text = clean_text(raw_text)
+
+    chunks = chunk_text(cleaned_text)
+
+    preview = cleaned_text[:1000] if cleaned_text else None
 
     return {
         "filename": file.filename,
         "message": "File uploaded successfully",
         "preview": preview,
-        "has_text": bool(extracted_text.strip())
+        "has_text": bool(cleaned_text),
+        "chunk_count": len(chunks),
+        "sample_chunk": chunks[0] if chunks else None
     }

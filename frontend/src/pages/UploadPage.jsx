@@ -10,6 +10,9 @@ function UploadPage() {
   const [preview, setPreview] = useState("");
   const [hasText, setHasText] = useState(true);
 
+  const [chunkCount, setChunkCount] = useState(0);
+  const [sampleChunk, setSampleChunk] = useState("");
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
 
@@ -38,6 +41,8 @@ function UploadPage() {
       setMessage(result.message);
       setPreview(result.preview || "");
       setHasText(result.has_text);
+      setChunkCount(result.chunk_count);
+      setSampleChunk(result.sample_chunk || "");
 
     } catch (error) {
 
@@ -124,6 +129,40 @@ function UploadPage() {
             </div>
 
         </div>
+        )}
+
+        {chunkCount > 0 && (
+          <div className="mt-8">
+
+            <h3 className="text-xl font-semibold mb-3">
+              Chunk Information
+            </h3>
+
+            <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-xl">
+
+              <p className="text-zinc-300">
+                Total Chunks: {chunkCount}
+              </p>
+
+              <div className="mt-4">
+
+                <p className="text-zinc-400 mb-2">
+                  Sample Chunk
+                </p>
+
+                <div className="bg-zinc-950 p-4 rounded-lg border border-zinc-800">
+
+                  <p className="text-zinc-300 whitespace-pre-wrap">
+                    {sampleChunk}
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
         )}
 
       </div>
